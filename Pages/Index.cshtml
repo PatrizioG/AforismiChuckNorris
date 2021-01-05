@@ -16,7 +16,7 @@
 <article class="doc__content">
     <section class="js-section">
         <h3 class="section__title">Retrieve a random aphorism in JSON format</h3>
-        <samp><a class="link link--dark" asp-controller="Aphorisms" asp-action="GetRandomAphorism">@Url.ActionLink("GetRandomAphorism", "Aphorisms")</a></samp>
+        <samp><a style="word-break: break-all" class="link link--dark" asp-controller="Aphorisms" asp-action="GetRandomAphorism">@Url.ActionLink("GetRandomAphorism", "Aphorisms")</a></samp>
         <p>Example response:</p>
         <div class="code__block code__block--notabs">
             <pre class="code code--block">
@@ -34,7 +34,7 @@
     <section class="js-section">
         <h3 class="section__title">Retrieve a specific aphorism by Id</h3>
         <samp>
-            <a class="link link--dark" asp-controller="Aphorisms" asp-action="GetAphorism" asp-route-id="a67a7345-2167-432b-8ef0-89e4b8813ecb">
+            <a style="word-break: break-all" class="link link--dark" asp-controller="Aphorisms" asp-action="GetAphorism" asp-route-id="a67a7345-2167-432b-8ef0-89e4b8813ecb">
                 @Url.ActionLink("GetAphorism", "Aphorisms", new { Id = "a67a7345-2167-432b-8ef0-89e4b8813ecb" })
             </a>
         </samp>
@@ -53,9 +53,9 @@
         </div>
     </section>
     <section class="js-section">
-        <h3 class="section__title">Customize response name instead of Chuck Norris</h3>
+        <h3 class="section__title">Replace Chuck Norris with a custom name</h3>
         <samp>
-            <a class="link link--dark" asp-controller="Aphorisms" asp-action="GetRandomAphorism" asp-route-subject="John Doe">
+            <a style="word-break: break-all" class="link link--dark" asp-controller="Aphorisms" asp-action="GetRandomAphorism" asp-route-subject="John Doe">
                 @Url.ActionLink("GetRandomAphorism", "Aphorisms", new { Subject = "John Doe" })
             </a>
         </samp>
