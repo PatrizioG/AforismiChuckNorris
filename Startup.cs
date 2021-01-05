@@ -1,4 +1,5 @@
 using AforismiChuckNorris.Data;
+using AforismiChuckNorris.Data.Entities;
 using AforismiChuckNorris.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
@@ -24,15 +25,15 @@ namespace AforismiChuckNorris
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<ApplicationDbContext>(options =>
-            //    options.UseSqlServer(
-            //        Configuration.GetConnectionString("AforismiChuckNorrisDB")));
-
             services.AddDbContext<ApplicationDbContext>(options =>
-               options.UseSqlite("Data Source=AforismiChuckNorrisDB.db"));
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("AforismiChuckNorrisDB")));
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            //   options.UseSqlite("Data Source=AforismiChuckNorrisDB.db"));
+
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ApplicationDbContext>();                
 
             services.AddScoped<IAphorismsService, AphorismsService>();
 

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,6 +9,47 @@ namespace AforismiChuckNorris.Data
 {
     public class SeedData
     {
+        public static void SeedAphorisms(ILogger logger, ApplicationDbContext context, string path, string culture = "it-IT")
+        {
+            try
+            {               
+
+                // This text is added only once to the file.
+                if (File.Exists(path))
+                {
+                    // Open the file to read from.
+                    string[] readText = File.ReadAllLines(path);
+                    foreach (string s in readText)
+                    {
+                        if (string.IsNullOrEmpty(s))
+                            continue;
+
+                        if (!s.Contains("{0}"))
+                            continue;
+
+                        context.Aphorisms.Add(new Entities.Aphorism()
+                        {
+                            Id = Guid.NewGuid(),
+                            CreationDate = DateTime.UtcNow,
+                            UpdateDate = DateTime.UtcNow,
+                            Value = s.Trim(),
+                            Culture = culture
+                        });
+
+                        logger.LogInformation($"Added: {s}");
+                    }
+
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+            }
+            if (context.Aphorisms.Any())
+                return;
+        }
+
         public static void SeedAphorisms(ApplicationDbContext context)
         {
             if (!context.Aphorisms.Any())

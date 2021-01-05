@@ -30,25 +30,39 @@ namespace AforismiChuckNorris.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAphorism(Guid id)
+        public async Task<IActionResult> GetAphorism(Guid id, string subject)
         {
             var aphorism = await _aphorismsService.GetAphorism(id);
 
             if (aphorism != null)
+            {
+                if (!string.IsNullOrEmpty(subject))
+                    aphorism.Subject = subject;
+
                 return Ok(_mapper.Map<AphorismDto>(aphorism));
+            }
             else
+            {
                 return NotFound();
+            }
         }
 
         [HttpGet("random")]
-        public async Task<IActionResult> GetRandomAphorism()
+        public async Task<IActionResult> GetRandomAphorism(string subject)
         {
             var aphorism = await _aphorismsService.GetRandomAphorism();
 
             if (aphorism != null)
+            {
+                if (!string.IsNullOrEmpty(subject))
+                    aphorism.Subject = subject;
+
                 return Ok(_mapper.Map<AphorismDto>(aphorism));
+            }
             else
+            {
                 return NotFound();
+            }
         }
     }
 }
