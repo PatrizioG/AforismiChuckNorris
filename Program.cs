@@ -20,6 +20,10 @@ namespace AforismiChuckNorris
                 var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
 
                 var path = $"{env.ContentRootPath}\\Data\\seedData.txt";
+
+                // Create the database if it doesn't exist
+                context.Database.EnsureCreated();
+
                 SeedData.SeedAphorisms(logger, context, path);
                 context.Dispose();
             }
