@@ -37,9 +37,7 @@ namespace AforismiChuckNorris
 
             services.AddScoped<IAphorismsService, AphorismsService>();
 
-            services.AddRazorPages(options => {
-                options.Conventions.AuthorizePage("/PendingAphorisms");
-            });
+            services.AddRazorPages();
             services.AddControllers();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -65,8 +63,8 @@ namespace AforismiChuckNorris
 
             app.UseRouting();
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+            //app.UseAuthentication();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

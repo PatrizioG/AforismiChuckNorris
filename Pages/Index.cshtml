@@ -1,13 +1,97 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Benvenuto/a su AforismiChuckNorris</h1>
-    <p>AforismiChuckNorris è una JSON API che fornisce aforismi su Chuck Norris</p>
-    <h2>Utilizzo</h2>
-    <p>Restituisce un aforisma casuale su Chuck Norris</p>
-    <samp>This text is meant to be treated as sample output from a computer program.</samp>
+<div class="callout">
+    <a id="TryItButton" href="#" class="button--primary">Try it now</a>
+    <div class="code__block code__block--notabs">
+        <pre class="code code--block">
+            <code id="ApiOutput"></code>       
+        </pre>
+    </div>
 </div>
+
+<article class="doc__content">
+    <section class="js-section">
+        <h3 class="section__title">Retrieve a random aphorism in JSON format</h3>
+        <samp><a class="link link--dark" asp-controller="Aphorisms" asp-action="GetRandomAphorism">@Url.ActionLink("GetRandomAphorism", "Aphorisms")</a></samp>
+        <p>Example response:</p>
+        <div class="code__block code__block--notabs">
+            <pre class="code code--block">
+            <code>
+                    {
+                        "id": "49140b30-7341-4523-9af9-540f90bf02f8",
+                        "creationDate": "05/01/2021 09:30:50",
+                        "updateDate": "05/01/2021 09:30:50",
+                        "value": "Quando gli servono una banana flambè, Chuck Norris mangia prima il fuoco"
+                    }
+                </code>
+            </pre>
+        </div>
+    </section>
+    <section class="js-section">
+        <h3 class="section__title">Retrieve a specific aphorism by Id</h3>
+        <samp>
+            <a class="link link--dark" asp-controller="Aphorisms" asp-action="GetAphorism" asp-route-id="a67a7345-2167-432b-8ef0-89e4b8813ecb">
+                @Url.ActionLink("GetAphorism", "Aphorisms", new { Id = "a67a7345-2167-432b-8ef0-89e4b8813ecb" })
+            </a>
+        </samp>
+        <p>Example response:</p>
+        <div class="code__block code__block--notabs">
+            <pre class="code code--block">
+            <code>
+                    {
+                    "id": "a67a7345-2167-432b-8ef0-89e4b8813ecb",
+                    "creationDate": "05/01/2021 11:55:31",
+                    "updateDate": "05/01/2021 11:55:31",
+                    "value": "Chuck Norris è particolarmente consigliato nelle diete povere di calcio."
+                    }
+                </code>
+            </pre>
+        </div>
+    </section>
+    <section class="js-section">
+        <h3 class="section__title">Customize response name instead of Chuck Norris</h3>
+        <samp>
+            <a class="link link--dark" asp-controller="Aphorisms" asp-action="GetRandomAphorism" asp-route-subject="John Doe">
+                @Url.ActionLink("GetRandomAphorism", "Aphorisms", new { Subject = "John Doe" })
+            </a>
+        </samp>
+        <p>Example response:</p>
+        <div class="code__block code__block--notabs">
+            <pre class="code code--block">
+            <code>
+                    {
+                        "id": "ae2ac386-fb3a-43a1-90ad-d0a5e6e69e31",
+                        "creationDate": "05/01/2021 12:15:04",
+                        "updateDate": "05/01/2021 12:15:04",
+                        "value": "John Doe è stato campione mondiale di Formula Uno. Senza macchina"
+                    }
+                </code>
+            </pre>
+        </div>
+    </section>
+</article>
+
+@section changelog
+{
+    <div class="changelog">
+        <div class="wrapper">
+            <h3 class="section__title">Changelog</h3>
+            <div class="changelog__item">
+                <div class="changelog__meta">
+                    <h4 class="changelog__title">v0.5</h4>
+                    <small class="changelog__date">05/01/2021</small>
+                </div>
+                <div class="changelog__detail">
+                    <ul>
+                        <li>First release</li>
+                        <li>Get seed data from: <a href="https://www.daimon.org/hum/aforismi/aforismi_citazioni_battute_chuck_norris.htm" target="_blank">www.daimon.org</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}
