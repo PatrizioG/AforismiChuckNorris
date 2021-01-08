@@ -38,7 +38,7 @@ namespace AforismiChuckNorris
 
             services.AddScoped<IAphorismsService, AphorismsService>();
 
-            services.AddRazorPages();
+            services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddControllers();
 
             services.AddTransient<IEmailSender, EmailSender>();

@@ -31,27 +31,28 @@ namespace AforismiChuckNorris.Areas.Identity.Pages.Account
         public IEnumerable<Aphorism> PublishedAphorisms { get; set; } = new List<Aphorism>();
 
         public bool CanAddAphorisms { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
+            ApplicationUser = await _userManager.GetUserAsync(User);
+            if (ApplicationUser == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
             // preleva tutti gli aforismi dell'utente
-            var aphorisms = _aphorismsService.GetAphorismsOwnedBy(user.Id);
+            var aphorisms = _aphorismsService.GetAphorismsOwnedBy(ApplicationUser.Id);
 
             PendingAphorisms = aphorisms.Where(a => a.Status == Data.Models.AphorismStatus.Pending);
             PublishedAphorisms = aphorisms.Where(a => a.Status == Data.Models.AphorismStatus.Published);
 
-            if (!user.MaxPendingRequest.HasValue)
+            if (!ApplicationUser.MaxPendingRequest.HasValue)
             {
                 // l'utente non ha limite di aggiunta
                 CanAddAphorisms = true;
             }
-            else if (user.MaxPendingRequest.Value < PublishedAphorisms.Count())
+            else if (ApplicationUser.MaxPendingRequest.Value < PublishedAphorisms.Count())
                 CanAddAphorisms = true;
             else
                 CanAddAphorisms = false;
