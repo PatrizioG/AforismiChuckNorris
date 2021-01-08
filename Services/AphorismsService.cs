@@ -1,6 +1,7 @@
 ﻿using AforismiChuckNorris.Data;
 using AforismiChuckNorris.Data.Entities;
 using AforismiChuckNorris.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -13,14 +14,47 @@ namespace AforismiChuckNorris.Services
     {
         private readonly ILogger<AphorismsService> _logger;
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public AphorismsService(ILogger<AphorismsService> logger, ApplicationDbContext applicationDbContext)
+        public AphorismsService(ILogger<AphorismsService> logger, 
+            ApplicationDbContext applicationDbContext,
+             UserManager<ApplicationUser> userManager)
         {
-            this._logger = logger;
-            this._context = applicationDbContext;
-        }              
+            _logger = logger;
+            _context = applicationDbContext;
+            _userManager = userManager;
+        }
+
+        public int GetAphorismCount() => _context.Aphorisms.Count();
 
         public async Task<Aphorism> GetAphorism(Guid aphorismId) => await _context.Aphorisms.FindAsync(aphorismId);
+        public IEnumerable<Aphorism> GetAphorismsOwnedBy(string userId)
+        {
+            return _context.Aphorisms.Where(a => a.UserId == userId).ToList();            
+        }
+
+        public async Task<bool> AddAphorism(string aphorism, string culture, string userId = null, bool saveToDb = true, AphorismStatus status = AphorismStatus.Published)
+        {
+            bool result = false;                                       
+
+            _context.Aphorisms.Add(new Aphorism()
+            {
+                Id = Guid.NewGuid(),
+                CreationDate = DateTime.UtcNow,
+                UpdateDate = DateTime.UtcNow,
+                Value = aphorism.Trim(),
+                Culture = culture,
+                UserId = userId,
+                Status = status
+            });
+
+            if (saveToDb)
+                result = (await _context.SaveChangesAsync()) > 0;
+            
+            _logger.LogInformation($"Added: {aphorism}");
+
+            return result;
+        }
 
         public async Task<Aphorism> GetRandomAphorism()
         {

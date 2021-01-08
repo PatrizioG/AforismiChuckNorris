@@ -1,0 +1,77 @@
+﻿@page
+@model AforismiChuckNorris.Areas.Identity.Pages.Account.ManageAphorismsModel
+
+@{
+    Layout = "_LayoutBackoffice";
+}
+
+<div class="m-2">
+
+    <a asp-page="CreateAphorism" class="btn btn-primary">Create</a>
+
+    <h4 class="bg-primary text-white text-center p-2">Your pending aphorisms</h4>
+    <table class="table table-sm table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>AphorismId</th>
+                <th>Aphorism</th>
+                <th>Date created</th>
+                <th>Date updated</th>
+                <th>Status</th>
+                <th></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var aphorism in Model.PendingAphorisms)
+            {
+                <tr>
+                    <td>@aphorism.Id</td>
+                    <td>@aphorism.Value</td>
+                    <td>@aphorism.CreationDate</td>
+                    <td>@aphorism.UpdateDate</td>
+                    <td>@aphorism.Status</td>
+                    <td class="text-center">
+                        <a asp-page="Edit" asp-route-id="@aphorism.Id"
+                           class="btn btn-sm btn-warning">Edit</a>
+                        <a asp-page="Delete" asp-route-id="@aphorism.Id"
+                           class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h4 class="bg-primary text-white text-center p-2">Your published aphorisms</h4>
+    <table class="table table-sm table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>AphorismId</th>
+                <th>Aphorism</th>
+                <th>Date created</th>
+                <th>Date updated</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var aphorism in Model.PublishedAphorisms)
+            {
+                <tr>
+                    <td>@aphorism.Id</td>
+                    <td>@aphorism.Value</td>
+                    <td>@aphorism.CreationDate</td>
+                    <td>@aphorism.UpdateDate</td>
+                    <td>@aphorism.Status</td>
+                    <td class="text-center">
+                        <a asp-page="Edit" asp-route-id="@aphorism.Id"
+                           class="btn btn-sm btn-warning">Edit</a>
+                        <a asp-page="Delete" asp-route-id="@aphorism.Id"
+                           class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>

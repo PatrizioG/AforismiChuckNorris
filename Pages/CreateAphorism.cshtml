@@ -1,0 +1,25 @@
+﻿@page
+@model AforismiChuckNorris.Areas.Identity.Pages.Account.CreateAphorismModel
+
+@{ 
+    Layout = "_LayoutBackoffice";
+}
+
+<section>
+    <p>Add aphorism:</p>
+    <form id="account" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Input.Aphorism"></label>
+            <input asp-for="Input.Aphorism" class="form-control" />
+            <span asp-validation-for="Input.Aphorism" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <select asp-for="Input.Culture" asp-items="Model.Cultures"></select>
+            <span asp-validation-for="Input.Culture" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Add aphorism</button>
+        </div>
+    </form>
+</section>

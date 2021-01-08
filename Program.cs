@@ -1,4 +1,5 @@
 using AforismiChuckNorris.Data;
+using AforismiChuckNorris.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -16,6 +17,7 @@ namespace AforismiChuckNorris
             {
 
                 var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                var aphorismService = scope.ServiceProvider.GetRequiredService<IAphorismsService>();
                 var env = scope.ServiceProvider.GetRequiredService<IWebHostEnvironment>();
                 var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
 
@@ -24,7 +26,7 @@ namespace AforismiChuckNorris
                 // Create the database if it doesn't exist
                 context.Database.EnsureCreated();
 
-                SeedData.SeedAphorisms(logger, context, path);
+                SeedData.SeedAphorisms(logger, context, aphorismService, path);
                 context.Dispose();
             }
 

@@ -19,6 +19,7 @@ namespace AforismiChuckNorris.Data.Entities
         public string Culture { get; set; }
         public AphorismStatus Status { get; set; }
 
+        public string UserId { get; set; }
         public ApplicationUser User { get; set; }
     }
 }
