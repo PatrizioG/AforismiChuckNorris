@@ -1,15 +1,19 @@
 using AforismiChuckNorris.Data;
+using AforismiChuckNorris.Data.Entities;
 using AforismiChuckNorris.Services;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Threading.Tasks;
 
 namespace AforismiChuckNorris
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
 
@@ -23,14 +27,30 @@ namespace AforismiChuckNorris
 
                 var path = $"{env.ContentRootPath}\\Data\\seedData.txt";
 
-                // Create the database if it doesn't exist
-                context.Database.EnsureCreated();
+                await context.Database.EnsureCreatedAsync();
 
-                SeedData.SeedAphorisms(logger, context, aphorismService, path);
+                await SeedData.SeedAphorismsAsync(logger, context, aphorismService, path);
+
+                await CreateAdminUser(scope.ServiceProvider);
+
                 context.Dispose();
             }
 
-            host.Run();
+            await host.RunAsync();
+        }
+
+        private static async Task CreateAdminUser(IServiceProvider serviceProvider)
+        {
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+            if (!await RoleManager.RoleExistsAsync("Administrator"))
+                await RoleManager.CreateAsync(new IdentityRole("Administrator"));
+
+            ApplicationUser user = await UserManager.FindByEmailAsync("patrizio.gasperi@gmail.com");
+
+            if (user != null)
+                await UserManager.AddToRoleAsync(user, "Administrator");
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

@@ -5,10 +5,8 @@
     Layout = "_LayoutBackoffice";
 }
 
-<div class="m-2">
-
-    <a asp-page="CreateAphorism" class="btn btn-primary mb-3">Create</a>
-
+<div class="m-2">    
+    <a asp-page="CreateAphorism" class="btn btn-primary mb-3 @(!Model.CanAddAphorisms ? "disabled " : "")">Create</a>
     @{
         string actualpending = Model.PendingAphorisms.Count().ToString();
         string maxPermitted = Model.ApplicationUser.MaxPendingRequest.HasValue ? Model.ApplicationUser.MaxPendingRequest.Value.ToString() : "Unlimited";

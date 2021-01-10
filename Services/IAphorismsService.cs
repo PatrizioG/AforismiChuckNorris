@@ -9,7 +9,8 @@ namespace AforismiChuckNorris.Services
 {
     public interface IAphorismsService
     {
-        Task<Aphorism> GetRandomAphorism();
+        Task<Aphorism> GetRandomAphorism();        
+        Task<IEnumerable<Aphorism>> GetPendingAphorism();
         Task<Aphorism> GetAphorism(Guid aphorismId);
         IEnumerable<Aphorism> GetAphorismsOwnedBy(string userId);
         int GetAphorismCount();

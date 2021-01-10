@@ -1,0 +1,41 @@
+﻿@page
+@model AforismiChuckNorris.Pages.ManagePendingAphorismsModel
+@{
+    Layout = "_LayoutBackoffice";
+}
+
+<div class="m-2">
+    <h4 class="bg-primary text-white text-center p-2">Aphorism to Accept</h4>
+    <table class="table table-sm table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>AphorismId</th>
+                <th>Aphorism</th>
+                <th>Date created</th>
+                <th>Date updated</th>
+                <th>Language</th>
+                <th>Status</th>
+                <th>User</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var aphorism in Model.PendingAphorisms)
+            {
+            <tr>
+                <td>@aphorism.Id</td>
+                <td>@aphorism.Value</td>
+                <td>@aphorism.CreationDate</td>
+                <td>@aphorism.UpdateDate</td>
+                <td>@aphorism.Culture</td>
+                <td>@aphorism.Status</td>
+                <td>@aphorism.User.UserName</td>
+                <td class="text-center">
+                    <a asp-page="Edit" asp-route-id="@aphorism.Id"
+                       class="btn btn-sm btn-warning">Accept</a>                    
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

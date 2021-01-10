@@ -33,8 +33,14 @@ namespace AforismiChuckNorris
             services.AddDbContext<ApplicationDbContext>(options =>
                options.UseSqlite("Data Source=AforismiChuckNorrisDB.db"));
 
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            //    options.UseCosmos("",
+            //    "",
+            //    databaseName: ""));
+
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();                
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddScoped<IAphorismsService, AphorismsService>();
 
@@ -48,7 +54,7 @@ namespace AforismiChuckNorris
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider service)
         {
             if (env.IsDevelopment())
             {

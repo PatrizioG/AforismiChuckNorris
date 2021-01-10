@@ -2,6 +2,7 @@
 using AforismiChuckNorris.Data.Entities;
 using AforismiChuckNorris.Data.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace AforismiChuckNorris.Services
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public AphorismsService(ILogger<AphorismsService> logger, 
+        public AphorismsService(ILogger<AphorismsService> logger,
             ApplicationDbContext applicationDbContext,
              UserManager<ApplicationUser> userManager)
         {
@@ -27,15 +28,22 @@ namespace AforismiChuckNorris.Services
 
         public int GetAphorismCount() => _context.Aphorisms.Count();
 
+        public async Task<IEnumerable<Aphorism>> GetPendingAphorism()
+        {
+            return await _context.Aphorisms
+                .Where(a => a.Status == AphorismStatus.Pending)
+                .Include(a => a.User).ToListAsync();
+        }
+
         public async Task<Aphorism> GetAphorism(Guid aphorismId) => await _context.Aphorisms.FindAsync(aphorismId);
         public IEnumerable<Aphorism> GetAphorismsOwnedBy(string userId)
         {
-            return _context.Aphorisms.Where(a => a.UserId == userId).ToList();            
+            return _context.Aphorisms.Where(a => a.UserId == userId).ToList();
         }
 
         public async Task<bool> AddAphorism(string aphorism, string culture, string userId = null, bool saveToDb = true, AphorismStatus status = AphorismStatus.Published)
         {
-            bool result = false;                                       
+            bool result = false;
 
             _context.Aphorisms.Add(new Aphorism()
             {
@@ -50,7 +58,7 @@ namespace AforismiChuckNorris.Services
 
             if (saveToDb)
                 result = (await _context.SaveChangesAsync()) > 0;
-            
+
             _logger.LogInformation($"Added: {aphorism}");
 
             return result;
@@ -72,7 +80,7 @@ namespace AforismiChuckNorris.Services
                 _logger.LogError(ex.Message);
             }
 
-            return null;            
+            return null;
         }
 
         public async Task<bool> SaveProduct(AphorismDto aphorismDto)

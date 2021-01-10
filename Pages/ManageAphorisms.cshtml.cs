@@ -1,15 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 using AforismiChuckNorris.Data.Entities;
 using AforismiChuckNorris.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AforismiChuckNorris.Areas.Identity.Pages.Account
 {
@@ -17,16 +14,19 @@ namespace AforismiChuckNorris.Areas.Identity.Pages.Account
     public class ManageAphorismsModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
         private readonly IAphorismsService _aphorismsService;
 
         public ManageAphorismsModel(
             UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager,
             IAphorismsService aphorismsService)
         {
             _userManager = userManager;
+            this.roleManager = roleManager;
             _aphorismsService = aphorismsService;
-        }       
-               
+        }
+
         public IEnumerable<Aphorism> PendingAphorisms { get; set; } = new List<Aphorism>();
         public IEnumerable<Aphorism> PublishedAphorisms { get; set; } = new List<Aphorism>();
 
@@ -52,13 +52,12 @@ namespace AforismiChuckNorris.Areas.Identity.Pages.Account
                 // l'utente non ha limite di aggiunta
                 CanAddAphorisms = true;
             }
-            else if (ApplicationUser.MaxPendingRequest.Value < PublishedAphorisms.Count())
-                CanAddAphorisms = true;
-            else
+            else if (PublishedAphorisms.Count() >= ApplicationUser.MaxPendingRequest.Value)
                 CanAddAphorisms = false;
-
+            else
+                CanAddAphorisms = true;
 
             return Page();
-        }                
+        }
     }
 }
