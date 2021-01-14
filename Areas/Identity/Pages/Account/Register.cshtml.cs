@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
+using AforismiChuckNorris.Services;
+using Microsoft.Extensions.Options;
 
 namespace AforismiChuckNorris.Areas.Identity.Pages.Account
 {
@@ -26,19 +28,22 @@ namespace AforismiChuckNorris.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly IConfiguration _configuration;
+        private readonly EmailSenderOptions _emailSenderOptions;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IOptions<EmailSenderOptions> options)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
             _configuration = configuration;
+            _emailSenderOptions = options.Value;
         }
 
         [BindProperty]
@@ -87,11 +92,11 @@ namespace AforismiChuckNorris.Areas.Identity.Pages.Account
                     maxPendingRequest = m;
                 }
 
-                var user = new ApplicationUser 
-                { 
-                    UserName = Input.Email, 
-                    Email = Input.Email, 
-                    MaxPendingRequest = maxPendingRequest 
+                var user = new ApplicationUser
+                {
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    MaxPendingRequest = maxPendingRequest
                 };
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
@@ -106,6 +111,10 @@ namespace AforismiChuckNorris.Areas.Identity.Pages.Account
                         pageHandler: null,
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
+
+                    // Avviso amministratore che un utente si è registrato
+                    await _emailSender.SendEmailAsync(_emailSenderOptions.AdministratorEmail, "New registration request on ChuckNorrisAphorisms",
+                    $"The user {Input.Email} send a registration request");
 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");

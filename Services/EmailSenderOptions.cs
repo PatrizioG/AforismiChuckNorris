@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 
 namespace AforismiChuckNorris.Services
 {
-    public class AuthMessageSenderOptions
+    public class EmailSenderOptions
     {
         public string SendGridUser { get; set; }
+        public string SendGridEmail { get; set; }
         public string SendGridKey { get; set; }
+        public string AdministratorEmail { get; set; }
     }
 }

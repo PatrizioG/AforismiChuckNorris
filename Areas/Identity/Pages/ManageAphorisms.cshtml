@@ -38,9 +38,9 @@
                 <td>@aphorism.Culture</td>
                 <td>@aphorism.Status</td>
                 <td class="text-center">
-                    <a asp-page="Edit" asp-route-id="@aphorism.Id"
+                    <a asp-page="EditAphorism" asp-route-id="@aphorism.Id"
                        class="btn btn-sm btn-warning">Edit</a>
-                    <a asp-page="Delete" asp-route-id="@aphorism.Id"
+                    <a asp-page="DeleteAphorism" asp-route-id="@aphorism.Id"
                        class="btn btn-sm btn-danger">Delete</a>
                 </td>
             </tr>
@@ -69,9 +69,7 @@
                     <td>@aphorism.CreationDate</td>
                     <td>@aphorism.UpdateDate</td>
                     <td>@aphorism.Status</td>
-                    <td class="text-center">
-                        <a asp-page="Edit" asp-route-id="@aphorism.Id"
-                           class="btn btn-sm btn-warning">Edit</a>
+                    <td class="text-center">                       
                         <a asp-page="Delete" asp-route-id="@aphorism.Id"
                            class="btn btn-sm btn-danger">Delete</a>
                     </td>

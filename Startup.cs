@@ -48,7 +48,7 @@ namespace AforismiChuckNorris
             services.AddControllers();
 
             services.AddTransient<IEmailSender, EmailSender>();
-            services.Configure<AuthMessageSenderOptions>(Configuration);
+            services.Configure<EmailSenderOptions>(Configuration.GetSection("EmailSenderOptions"));
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
@@ -70,7 +70,7 @@ namespace AforismiChuckNorris
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+                                  
             app.UseRouting();
 
             app.UseAuthentication();

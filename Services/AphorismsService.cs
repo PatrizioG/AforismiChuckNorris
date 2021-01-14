@@ -26,7 +26,12 @@ namespace AforismiChuckNorris.Services
             _userManager = userManager;
         }
 
-        public int GetAphorismCount() => _context.Aphorisms.Count();
+        public int GetAphorismCount()
+        {
+            return _context.Aphorisms
+                .Where(a => a.Status == AphorismStatus.Published)
+                .Count();
+        }
 
         public async Task<IEnumerable<Aphorism>> GetPendingAphorism()
         {
@@ -35,7 +40,12 @@ namespace AforismiChuckNorris.Services
                 .Include(a => a.User).ToListAsync();
         }
 
-        public async Task<Aphorism> GetAphorism(Guid aphorismId) => await _context.Aphorisms.FindAsync(aphorismId);
+        public async Task<Aphorism> GetAphorism(Guid aphorismId)
+        {
+            return await _context.Aphorisms
+                .Where(a => a.Status == AphorismStatus.Published && a.Id == aphorismId)
+                .FirstOrDefaultAsync();
+        }
         public IEnumerable<Aphorism> GetAphorismsOwnedBy(string userId)
         {
             return _context.Aphorisms.Where(a => a.UserId == userId).ToList();
@@ -68,7 +78,9 @@ namespace AforismiChuckNorris.Services
         {
             try
             {
-                var ids = _context.Aphorisms.Select(a => a.Id).ToList();
+                var ids = _context.Aphorisms
+                    .Where(a => a.Status == AphorismStatus.Published)
+                    .Select(a => a.Id).ToList();
 
                 var randomIndex = new Random().Next(0, ids.Count);
 
@@ -100,12 +112,15 @@ namespace AforismiChuckNorris.Services
         {
             _context.Update(aphorism);
             await _context.SaveChangesAsync();
+            _logger.LogInformation($"Added: {aphorism.Value}");
         }
 
         public async Task DeleteAphorism(Guid aphorismId)
         {
             _context.Aphorisms.Remove(new Aphorism() { Id = aphorismId });
             await _context.SaveChangesAsync();
+
+            _logger.LogInformation($"Deleted: {aphorismId}");
         }
     }
 }

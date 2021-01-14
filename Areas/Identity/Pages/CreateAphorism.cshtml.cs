@@ -7,9 +7,12 @@ using AforismiChuckNorris.Data.Entities;
 using AforismiChuckNorris.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace AforismiChuckNorris.Areas.Identity.Pages.Account
 {
@@ -18,6 +21,9 @@ namespace AforismiChuckNorris.Areas.Identity.Pages.Account
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IAphorismsService _aphorismsService;
+        private readonly IConfiguration _configuration;
+        private readonly IEmailSender _emailSender;
+        private readonly EmailSenderOptions _emailSenderOptions;
 
         public class InputModel
         {
@@ -28,21 +34,39 @@ namespace AforismiChuckNorris.Areas.Identity.Pages.Account
             public string Culture { get; set; }
         }
 
-        public List<SelectListItem> Cultures { get; } = new List<SelectListItem>
+        public List<SelectListItem> Cultures
         {
-            new SelectListItem { Value = "it-IT", Text = "Italian" },
-            new SelectListItem { Value = "en-EN", Text = "English" },
-        };
+            get
+            {
+                var cultures = new List<SelectListItem>();
+
+                foreach (var culture in _configuration.GetSection("SupportedCultures").GetChildren())
+                {
+                    cultures.Add(new SelectListItem
+                    {
+                        Value = culture.GetSection("Value").Value,
+                        Text = culture.GetSection("Text").Value
+                    });
+                }
+                return cultures;
+            }
+        }
 
         [BindProperty]
         public InputModel Input { get; set; }
 
         public CreateAphorismModel(
             UserManager<ApplicationUser> userManager,
-            IAphorismsService aphorismsService)
+            IAphorismsService aphorismsService,
+            IConfiguration configuration,
+            IEmailSender emailSender,
+            IOptions<EmailSenderOptions> emailSenderOptions)
         {
             _userManager = userManager;
             _aphorismsService = aphorismsService;
+            _configuration = configuration;
+            _emailSender = emailSender;
+            _emailSenderOptions = emailSenderOptions.Value;
         }
 
         public void OnGet()
@@ -68,7 +92,10 @@ namespace AforismiChuckNorris.Areas.Identity.Pages.Account
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            // todo sobstitute chuck norris with {0}
+            // Avviso amministratore che un utente ha inserito una richiesta di aforisma
+            await _emailSender.SendEmailAsync(_emailSenderOptions.AdministratorEmail, "New aphorism pending request",
+            $"The user {user.UserName} send this aphorism:{Input.Aphorism}, to accept click here: {Url.Page("/ManagePendingAphorisms")}");
+
             await _aphorismsService.AddAphorism(Input.Aphorism, Input.Culture, user.Id, true, Data.Models.AphorismStatus.Pending);
 
             return RedirectToPage("ManageAphorisms");
