@@ -1,6 +1,6 @@
-using AforismiChuckNorris.Data;
-using AforismiChuckNorris.Data.Entities;
-using AforismiChuckNorris.Services;
+using ChuckNorrisAphorisms.Data;
+using ChuckNorrisAphorisms.Data.Entities;
+using ChuckNorrisAphorisms.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace AforismiChuckNorris
+namespace ChuckNorrisAphorisms
 {
     public class Program
     {

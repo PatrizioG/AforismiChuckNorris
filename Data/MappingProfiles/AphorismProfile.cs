@@ -1,8 +1,8 @@
-﻿using AforismiChuckNorris.Data.Entities;
-using AforismiChuckNorris.Data.Models;
+﻿using ChuckNorrisAphorisms.Data.Entities;
+using ChuckNorrisAphorisms.Data.Models;
 using AutoMapper;
 
-namespace AforismiChuckNorris.Data.MappingProfiles
+namespace ChuckNorrisAphorisms.Data.MappingProfiles
 {
     public class AphorismProfile : Profile
     {

@@ -1,8 +1,24 @@
 ﻿@page "{id}"
-@model AforismiChuckNorris.Areas.Identity.Pages.EditAphorismModel
+@model ChuckNorrisAphorisms.Areas.Identity.Pages.EditAphorismModel
 @{
     Layout = "_LayoutBackoffice";
 }
 
 <section>
+    <form method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Input.Aphorism"></label>
+            <input asp-for="Input.Aphorism" class="form-control" />
+            <span asp-validation-for="Input.Aphorism" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <select asp-for="Input.Culture" asp-items="Model.Cultures"></select>
+            <span asp-validation-for="Input.Culture" class="text-danger"></span>
+        </div>
+        <input asp-for="Input.Id" hidden/>
+        <div class="form-group">
+            <button type="submit" class="btn btn-sm btn-warning">Edit aphorism</button>
+        </div>
+    </form>
 </section>

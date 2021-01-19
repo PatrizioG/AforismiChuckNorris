@@ -1,11 +1,11 @@
-﻿using AforismiChuckNorris.Data.Models;
+﻿using ChuckNorrisAphorisms.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AforismiChuckNorris.Data.Entities
+namespace ChuckNorrisAphorisms.Data.Entities
 {
     public class Aphorism
     {

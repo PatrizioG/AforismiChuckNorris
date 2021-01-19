@@ -1,6 +1,6 @@
-﻿using AforismiChuckNorris.Data;
-using AforismiChuckNorris.Data.Entities;
-using AforismiChuckNorris.Data.Models;
+﻿using ChuckNorrisAphorisms.Data;
+using ChuckNorrisAphorisms.Data.Entities;
+using ChuckNorrisAphorisms.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AforismiChuckNorris.Services
+namespace ChuckNorrisAphorisms.Services
 {
     public class AphorismsService : IAphorismsService
     {
@@ -42,9 +42,7 @@ namespace AforismiChuckNorris.Services
 
         public async Task<Aphorism> GetAphorism(Guid aphorismId)
         {
-            return await _context.Aphorisms
-                .Where(a => a.Status == AphorismStatus.Published && a.Id == aphorismId)
-                .FirstOrDefaultAsync();
+            return await _context.Aphorisms.FindAsync(aphorismId);            
         }
         public IEnumerable<Aphorism> GetAphorismsOwnedBy(string userId)
         {
@@ -73,6 +71,8 @@ namespace AforismiChuckNorris.Services
 
             return result;
         }
+
+
 
         public async Task<Aphorism> GetRandomAphorism()
         {
@@ -108,19 +108,19 @@ namespace AforismiChuckNorris.Services
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task UpdateProduct(Aphorism aphorism)
-        {
-            _context.Update(aphorism);
-            await _context.SaveChangesAsync();
-            _logger.LogInformation($"Added: {aphorism.Value}");
-        }
-
         public async Task DeleteAphorism(Guid aphorismId)
         {
             _context.Aphorisms.Remove(new Aphorism() { Id = aphorismId });
             await _context.SaveChangesAsync();
 
             _logger.LogInformation($"Deleted: {aphorismId}");
+        }
+
+        public async Task EditAphorism(Aphorism aphorism)
+        {
+            _context.Update(aphorism);
+            await _context.SaveChangesAsync();
+            _logger.LogInformation($"Added: {aphorism.Value}");
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using AforismiChuckNorris.Services;
+﻿using ChuckNorrisAphorisms.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AforismiChuckNorris.Data
+namespace ChuckNorrisAphorisms.Data
 {
     public class SeedData
     {
@@ -19,14 +19,10 @@ namespace AforismiChuckNorris.Data
         {
             try
             {
-                // con CosmosDb scoppia
-                //if (context.Aphorisms.Any())
-                //    return;
-
-                var any = await context.Aphorisms.FirstOrDefaultAsync();
-                if (any != null)
+                
+                if (context.Aphorisms.Any())
                     return;
-
+                
                 // This text is added only once to the file.
                 if (File.Exists(path))
                 {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AforismiChuckNorris.Areas.Identity.Pages.Account
+namespace ChuckNorrisAphorisms.Areas.Identity.Pages.Account
 {
     public class AccessDeniedModel : PageModel
     {

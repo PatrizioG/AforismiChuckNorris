@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
-using AforismiChuckNorris.Data.Entities;
+using ChuckNorrisAphorisms.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace AforismiChuckNorris.Areas.Identity.Pages.Account.Manage
+namespace ChuckNorrisAphorisms.Areas.Identity.Pages.Account.Manage
 {
     public class PersonalDataModel : PageModel
     {

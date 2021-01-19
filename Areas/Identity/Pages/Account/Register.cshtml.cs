@@ -7,7 +7,7 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using AforismiChuckNorris.Data.Entities;
+using ChuckNorrisAphorisms.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +15,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
-using AforismiChuckNorris.Services;
+using ChuckNorrisAphorisms.Services;
 using Microsoft.Extensions.Options;
 
-namespace AforismiChuckNorris.Areas.Identity.Pages.Account
+namespace ChuckNorrisAphorisms.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class RegisterModel : PageModel

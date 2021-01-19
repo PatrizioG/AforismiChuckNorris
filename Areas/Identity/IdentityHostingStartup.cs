@@ -1,6 +1,6 @@
 ﻿using System;
-using AforismiChuckNorris.Data;
-using AforismiChuckNorris.Data.Entities;
+using ChuckNorrisAphorisms.Data;
+using ChuckNorrisAphorisms.Data.Entities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-[assembly: HostingStartup(typeof(AforismiChuckNorris.Areas.Identity.IdentityHostingStartup))]
-namespace AforismiChuckNorris.Areas.Identity
+[assembly: HostingStartup(typeof(ChuckNorrisAphorisms.Areas.Identity.IdentityHostingStartup))]
+namespace ChuckNorrisAphorisms.Areas.Identity
 {
     public class IdentityHostingStartup : IHostingStartup
     {

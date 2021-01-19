@@ -1,5 +1,5 @@
-using AforismiChuckNorris.Data.Entities;
-using AforismiChuckNorris.Services;
+using ChuckNorrisAphorisms.Data.Entities;
+using ChuckNorrisAphorisms.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AforismiChuckNorris.Areas.Identity.Pages.Account
+namespace ChuckNorrisAphorisms.Areas.Identity.Pages.Account
 {
     [Authorize]
     public class ManageAphorismsModel : PageModel

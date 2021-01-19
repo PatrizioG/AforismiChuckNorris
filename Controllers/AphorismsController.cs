@@ -1,6 +1,6 @@
-﻿using AforismiChuckNorris.Data;
-using AforismiChuckNorris.Data.Models;
-using AforismiChuckNorris.Services;
+﻿using ChuckNorrisAphorisms.Data;
+using ChuckNorrisAphorisms.Data.Models;
+using ChuckNorrisAphorisms.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AforismiChuckNorris.Controllers
+namespace ChuckNorrisAphorisms.Controllers
 {
     [ApiController]
     [Route("api/aphorism")]

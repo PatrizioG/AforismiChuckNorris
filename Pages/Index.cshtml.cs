@@ -1,8 +1,8 @@
-﻿using AforismiChuckNorris.Services;
+﻿using ChuckNorrisAphorisms.Services;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace AforismiChuckNorris.Pages
+namespace ChuckNorrisAphorisms.Pages
 {
     public class IndexModel : PageModel
     {

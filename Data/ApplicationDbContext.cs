@@ -1,8 +1,8 @@
-﻿using AforismiChuckNorris.Data.Entities;
+﻿using ChuckNorrisAphorisms.Data.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace AforismiChuckNorris.Data
+namespace ChuckNorrisAphorisms.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

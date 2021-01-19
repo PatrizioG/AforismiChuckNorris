@@ -1,6 +1,6 @@
-using AforismiChuckNorris.Data;
-using AforismiChuckNorris.Data.Entities;
-using AforismiChuckNorris.Services;
+using ChuckNorrisAphorisms.Data;
+using ChuckNorrisAphorisms.Data.Entities;
+using ChuckNorrisAphorisms.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 
-namespace AforismiChuckNorris
+namespace ChuckNorrisAphorisms
 {
     public class Startup
     {
@@ -26,17 +26,8 @@ namespace AforismiChuckNorris
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<ApplicationDbContext>(options =>
-            //    options.UseSqlServer(
-            //        Configuration.GetConnectionString("AforismiChuckNorrisDB")));
-
             services.AddDbContext<ApplicationDbContext>(options =>
-               options.UseSqlite("Data Source=AforismiChuckNorrisDB.db"));
-
-            //services.AddDbContext<ApplicationDbContext>(options =>
-            //    options.UseCosmos("",
-            //    "",
-            //    databaseName: ""));
+               options.UseSqlite("Data Source=ChuckNorrisAphorismsDB.db"));
 
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()

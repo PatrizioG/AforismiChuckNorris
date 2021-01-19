@@ -1,5 +1,5 @@
 ﻿@page
-@model AforismiChuckNorris.Areas.Identity.Pages.Account.ManageAphorismsModel
+@model ChuckNorrisAphorisms.Areas.Identity.Pages.Account.ManageAphorismsModel
 
 @{
     Layout = "_LayoutBackoffice";
@@ -33,8 +33,8 @@
             <tr>
                 <td>@aphorism.Id</td>
                 <td>@aphorism.Value</td>
-                <td>@aphorism.CreationDate</td>
-                <td>@aphorism.UpdateDate</td>
+                <td>@aphorism.CreationDate.ToLocalTime()</td>
+                <td>@aphorism.UpdateDate.ToLocalTime()</td>
                 <td>@aphorism.Culture</td>
                 <td>@aphorism.Status</td>
                 <td class="text-center">
@@ -66,8 +66,8 @@
                 <tr>
                     <td>@aphorism.Id</td>
                     <td>@aphorism.Value</td>
-                    <td>@aphorism.CreationDate</td>
-                    <td>@aphorism.UpdateDate</td>
+                    <td>@aphorism.CreationDate.ToLocalTime()</td>
+                    <td>@aphorism.UpdateDate.ToLocalTime()</td>
                     <td>@aphorism.Status</td>
                     <td class="text-center">                       
                         <a asp-page="Delete" asp-route-id="@aphorism.Id"

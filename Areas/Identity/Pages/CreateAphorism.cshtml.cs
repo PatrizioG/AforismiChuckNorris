@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using AforismiChuckNorris.Data.Entities;
-using AforismiChuckNorris.Services;
+using ChuckNorrisAphorisms.Data.Entities;
+using ChuckNorrisAphorisms.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -13,8 +8,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
-namespace AforismiChuckNorris.Areas.Identity.Pages.Account
+namespace ChuckNorrisAphorisms.Areas.Identity.Pages.Account
 {
     [Authorize]
     public class CreateAphorismModel : PageModel

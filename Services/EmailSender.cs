@@ -4,7 +4,7 @@ using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Threading.Tasks;
 
-namespace AforismiChuckNorris.Services
+namespace ChuckNorrisAphorisms.Services
 {
     public class EmailSender : IEmailSender
     {

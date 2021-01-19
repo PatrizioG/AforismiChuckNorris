@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AforismiChuckNorris.Data.Entities;
-using AforismiChuckNorris.Services;
+using ChuckNorrisAphorisms.Data.Entities;
+using ChuckNorrisAphorisms.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AforismiChuckNorris.Pages
+namespace ChuckNorrisAphorisms.Pages
 {
     [Authorize(Roles = "Administrator")]
     public class ManagePendingAphorismsModel : PageModel

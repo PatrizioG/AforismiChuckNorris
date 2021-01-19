@@ -1,11 +1,11 @@
-﻿using AforismiChuckNorris.Data.Entities;
-using AforismiChuckNorris.Data.Models;
+﻿using ChuckNorrisAphorisms.Data.Entities;
+using ChuckNorrisAphorisms.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AforismiChuckNorris.Services
+namespace ChuckNorrisAphorisms.Services
 {
     public interface IAphorismsService
     {
@@ -16,5 +16,6 @@ namespace AforismiChuckNorris.Services
         int GetAphorismCount();
         Task DeleteAphorism(Guid aphorismId);
         Task<bool> AddAphorism(string aphorism, string culture, string userId = null, bool saveToDb = true, AphorismStatus status = AphorismStatus.Published);
+        Task EditAphorism(Aphorism aphorism);
     }
 }
