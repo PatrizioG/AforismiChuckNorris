@@ -15,15 +15,11 @@ namespace ChuckNorrisAphorisms.Services
     {
         private readonly ILogger<AphorismsService> _logger;
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<ApplicationUser> _userManager;
 
-        public AphorismsService(ILogger<AphorismsService> logger,
-            ApplicationDbContext applicationDbContext,
-             UserManager<ApplicationUser> userManager)
+        public AphorismsService(ILogger<AphorismsService> logger, ApplicationDbContext applicationDbContext)
         {
             _logger = logger;
             _context = applicationDbContext;
-            _userManager = userManager;
         }
 
         public int GetAphorismCount()

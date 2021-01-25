@@ -17,24 +17,24 @@ namespace ChuckNorrisAphorisms
         {
             var host = CreateHostBuilder(args).Build();
 
-            using (var scope = host.Services.CreateScope())
-            {
+            //using (var scope = host.Services.CreateScope())
+            //{
 
-                var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                var aphorismService = scope.ServiceProvider.GetRequiredService<IAphorismsService>();
-                var env = scope.ServiceProvider.GetRequiredService<IWebHostEnvironment>();
-                var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+            //    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            //    var aphorismService = scope.ServiceProvider.GetRequiredService<IAphorismsService>();
+            //    var env = scope.ServiceProvider.GetRequiredService<IWebHostEnvironment>();
+            //    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
 
-                var path = $"{env.ContentRootPath}\\Data\\seedData.txt";
+            //    var path = $"{env.ContentRootPath}\\Data\\seedData.txt";
 
-                await context.Database.EnsureCreatedAsync();
+            //    await context.Database.EnsureCreatedAsync();
 
-                await SeedData.SeedAphorismsAsync(logger, context, aphorismService, path);
+            //    await SeedData.SeedAphorismsAsync(logger, context, aphorismService, path);
 
-                await CreateAdminUser(scope.ServiceProvider);
+            //    await CreateAdminUser(scope.ServiceProvider);
 
-                context.Dispose();
-            }
+            //    context.Dispose();
+            //}
 
             await host.RunAsync();
         }

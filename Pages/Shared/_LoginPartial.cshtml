@@ -1,9 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
 
-
-@if (SignInManager.IsSignedIn(User))
+@if (true)
 {
     <li class="menu__item">
         <a class="link link--dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
